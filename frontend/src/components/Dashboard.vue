@@ -79,118 +79,50 @@
               <h3 class="text-lg font-semibold text-white">Model Predictions</h3>
             </div>
           </div>
-          <div class="flex-1 p-4 overflow-hidden flex flex-col">
-            <!-- Quick Stats -->
-            <div class="grid grid-cols-3 gap-2 mb-4 flex-shrink-0">
-              <div v-for="(count, level) in topRiskLevels" :key="level" 
-                   class="bg-white rounded-xl p-2 border border-slate-200 text-center">
-                <div class="text-lg font-bold" :class="getRiskColor(level)">{{ count }}</div>
-                <div class="text-xs text-slate-600 capitalize truncate">{{ level.replace('_', ' ') }}</div>
+            <div class="flex-1 p-0 overflow-hidden flex flex-col">
+              <div class="bg-white rounded-xl p-4 border border-slate-200 shadow hover:shadow-md transition flex flex-col gap-2 max-h-80 overflow-y-auto">
+                <h4 class="text-base font-bold text-indigo-700 mb-2">Latest Model Predictions</h4>
+                <div v-if="predictions && predictions.length > 0">
+                  <table class="w-full text-xs border-collapse">
+                    <thead>
+                      <tr class="text-slate-400">
+                        <th class="text-left font-medium">Component</th>
+                        <th class="text-right font-medium">Probability</th>
+                        <th class="text-right font-medium">Risk</th>
+                        <th class="text-right font-medium">Time to Failure</th>
+                        <th class="text-right font-medium">Predicted At</th>
+                        <th class="text-right font-medium">Details</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="(prediction, index) in predictions.slice(0, 10)" :key="index" class="border-b last:border-b-0">
+                        <td class="pr-2 text-slate-700 font-semibold whitespace-nowrap">{{ prediction.component || 'System' }}</td>
+                        <td class="text-right font-mono">{{ (prediction.overall_risk?.probability * 100 || 0).toFixed(1) }}%</td>
+                        <td class="text-right capitalize">
+                          <span class="px-2 py-0.5 rounded-full font-semibold" :class="getRiskBadgeColor(prediction.overall_risk?.risk_level)">
+                            {{ prediction.overall_risk?.risk_level || 'Unknown' }}
+                          </span>
+                        </td>
+                        <td class="text-right font-mono whitespace-nowrap">
+                          <span v-if="prediction.time_to_failure">{{ prediction.time_to_failure }}</span>
+                          <span v-else class="text-slate-400">--</span>
+                        </td>
+                        <td class="text-right font-mono whitespace-nowrap">{{ formatTimestamp(prediction.predicted_at || prediction.timestamp) }}</td>
+                        <td class="text-right max-w-[10rem] truncate" :title="prediction.details">{{ prediction.details || '--' }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div v-else class="text-center text-slate-400 py-8">
+                  No prediction data. Submit an alarm log to see prediction results.
+                </div>
               </div>
             </div>
-            <!-- Chart and Prediction Results Area -->
-            <div class="bg-slate-50 rounded-xl p-3 mb-4 flex-shrink-0" style="min-height: 120px; height: 200px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-              <template v-if="predictions && predictions.length > 0">
-                <canvas v-if="chartData" ref="chartRef" class="w-full h-full mb-2"></canvas>
-                <div class="w-full flex flex-col gap-4">
-                  <div v-for="(prediction, index) in predictions.slice(0, 10)" :key="index"
-                       class="bg-white rounded-xl p-4 border border-slate-200 shadow hover:shadow-md transition mb-2 flex flex-col gap-2">
-                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-1 mb-1">
-                      <div class="flex flex-wrap items-center gap-2">
-                        <span class="text-base font-bold text-indigo-700 capitalize">{{ prediction.component || 'System' }}</span>
-                        <span class="px-2 py-0.5 text-xs font-semibold rounded-full border"
-                              :class="getRiskBadgeColor(prediction.overall_risk?.risk_level)">
-                          {{ prediction.overall_risk?.risk_level || 'Unknown' }}
-                        </span>
-                        <span v-if="prediction.model_version" class="ml-2 text-xs text-slate-400">v{{ prediction.model_version }}</span>
-                      </div>
-                      <span class="text-xs text-slate-500">Predicted: {{ formatTimestamp(prediction.predicted_at || prediction.timestamp) }}</span>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                      <div class="flex flex-col gap-1">
-                        <div class="text-xs text-slate-500">Overall Probability of Failure</div>
-                        <div class="flex items-center gap-2 flex-wrap">
-                          <span class="text-lg font-mono font-bold text-indigo-600">{{ (prediction.overall_risk?.probability * 100 || 0).toFixed(1) }}%</span>
-                          <span v-if="prediction.overall_risk?.hours_to_failure !== undefined" class="text-xs text-slate-600">({{ prediction.overall_risk.hours_to_failure }}h to failure)</span>
-                          <span v-if="prediction.time_to_failure !== undefined && prediction.time_to_failure !== null" class="text-xs text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full ml-1">⏳ {{ prediction.time_to_failure }} to failure</span>
-                        </div>
-                        <div class="w-full bg-slate-200 rounded-full h-1.5 mt-1">
-                          <div class="h-1.5 rounded-full transition-all duration-300"
-                               :class="getRiskBarColor(prediction.overall_risk?.risk_level)"
-                               :style="{ width: `${(prediction.overall_risk?.probability * 100 || 0)}%` }"></div>
-                        </div>
-                      </div>
-                      <div>
-                        <div class="text-xs text-slate-500 mb-1">Failure Type Breakdown</div>
-                        <table class="w-full text-xs border-collapse">
-                          <thead>
-                            <tr class="text-slate-400">
-                              <th class="text-left font-medium">Type</th>
-                              <th class="text-right font-medium">Probability</th>
-                              <th class="text-right font-medium">Risk</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr v-for="(fail, type) in prediction.predictions" :key="type">
-                              <td class="pr-2 text-slate-700">{{ type }}</td>
-                              <td class="text-right font-mono">{{ (fail.probability * 100).toFixed(1) }}%</td>
-                              <td class="text-right capitalize">{{ fail.risk_level }}</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
-                      <div>
-                        <div class="text-xs text-slate-500">Severity</div>
-                        <div class="font-mono text-xs text-slate-700">{{ prediction.severity || 'N/A' }}</div>
-                      </div>
-                      <div>
-                        <div class="text-xs text-slate-500">Timestamp</div>
-                        <div class="font-mono text-xs text-slate-700">{{ formatTimestamp(prediction.timestamp) }}</div>
-                      </div>
-                      <div>
-                        <div class="text-xs text-slate-500">Predicted At</div>
-                        <div class="font-mono text-xs text-slate-700">{{ formatTimestamp(prediction.predicted_at) }}</div>
-                      </div>
-                      <div>
-                        <div class="text-xs text-slate-500">Model Version</div>
-                        <div class="font-mono text-xs text-slate-700">{{ prediction.model_version || 'N/A' }}</div>
-                      </div>
-                    </div>
-                    <div v-if="prediction.details" class="mt-2 p-2 bg-indigo-50 border border-indigo-100 rounded text-xs text-slate-700">
-                      <span class="font-semibold text-indigo-700">Details:</span> {{ prediction.details }}
-                    </div>
-                  </div>
-                </div>
-              </template>
-              <template v-else>
-                <div class="text-center">
-                  <svg class="w-8 h-8 mx-auto mb-1 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                  </svg>
-                  <p class="text-slate-500 text-xs">No prediction data</p>
-                  <div class="mt-2 text-xs text-slate-400">
-                    <div>Submit an alarm log to see prediction results.</div>
-                    <div>Prediction fields shown below:</div>
-                    <ul class="list-disc list-inside text-left mx-auto max-w-xs">
-                      <li>Component</li>
-                      <li>Probability of Failure</li>
-                      <li>Time to Failure</li>
-                      <li>Failure Type</li>
-                      <li>Severity</li>
-                      <li>Predicted At</li>
-                      <li>Details</li>
-                    </ul>
-                  </div>
-                </div>
-              </template>
-            </div>
             <!-- Predictions List (show prediction results) -->
-            <div class="flex-1 overflow-y-auto space-y-2 min-h-0">
-              <div v-if="predictions && predictions.length > 0">
-                <div v-for="(prediction, index) in predictions.slice(0, 10)" :key="index" 
-                     class="bg-slate-50 rounded-lg p-3 border border-slate-200 hover:bg-slate-100 transition-colors">
+            <div class="flex-1 min-h-0">
+              <div v-if="predictions && predictions.length > 0" class="overflow-y-auto space-y-2 h-full max-h-96 pr-1">
+                <div v-for="(prediction, index) in predictions.slice(0, 10)" :key="index"
+                     class="bg-slate-50 rounded-lg p-3 border border-slate-200 hover:bg-slate-100 transition-colors flex flex-col break-words max-h-60 overflow-y-auto">
                   <div class="flex items-start justify-between mb-1">
                     <span class="text-xs font-medium text-slate-600">
                       {{ formatTimestamp(prediction.predicted_at || prediction.timestamp) }}
@@ -200,28 +132,28 @@
                       {{ prediction.overall_risk?.risk_level || 'Unknown' }}
                     </span>
                   </div>
-                  <p class="text-sm text-slate-800 leading-tight mb-1">
+                  <div class="text-sm text-slate-800 leading-tight mb-1 whitespace-pre-line break-words">
                     <span class="font-semibold">{{ prediction.component || 'System' }}</span>
-                    <span>- Probability of Failure: <span class="font-mono">{{ (prediction.overall_risk?.probability * 100 || 0).toFixed(1) }}%</span></span>
-                  </p>
-                  <p v-if="prediction.time_to_failure" class="text-xs text-slate-600 mb-1">
+                    <span> - Probability of Failure: <span class="font-mono">{{ (prediction.overall_risk?.probability * 100 || 0).toFixed(1) }}%</span></span>
+                  </div>
+                  <div v-if="prediction.time_to_failure" class="text-xs text-slate-600 mb-1 break-words">
                     ⏳ Time to Failure: <span class="font-mono">{{ prediction.time_to_failure }}</span>
-                  </p>
-                  <p v-if="prediction.failure_type" class="text-xs text-slate-600 mb-1">
+                  </div>
+                  <div v-if="prediction.failure_type" class="text-xs text-slate-600 mb-1 break-words">
                     ⚠️ Failure Type: <span class="font-mono">{{ prediction.failure_type }}</span>
-                  </p>
-                  <p v-if="prediction.severity" class="text-xs text-slate-600 mb-1">
+                  </div>
+                  <div v-if="prediction.severity" class="text-xs text-slate-600 mb-1 break-words">
                     Severity: <span class="font-mono">{{ prediction.severity }}</span>
-                  </p>
-                  <p v-if="prediction.predicted_at" class="text-xs text-slate-600 mb-1">
+                  </div>
+                  <div v-if="prediction.predicted_at" class="text-xs text-slate-600 mb-1 break-words">
                     Predicted At: <span class="font-mono">{{ formatTimestamp(prediction.predicted_at) }}</span>
-                  </p>
+                  </div>
                   <div class="w-full bg-slate-200 rounded-full h-1.5 mb-1">
                     <div class="h-1.5 rounded-full transition-all duration-300"
                          :class="getRiskBarColor(prediction.overall_risk?.risk_level)"
                          :style="{ width: `${(prediction.overall_risk?.probability * 100 || 0)}%` }"></div>
                   </div>
-                  <div v-if="prediction.details" class="mt-1 text-xs text-slate-600">
+                  <div v-if="prediction.details" class="mt-1 text-xs text-slate-600 break-words">
                     {{ prediction.details }}
                   </div>
                 </div>
@@ -230,7 +162,7 @@
                 <div class="text-center">
                   <div class="w-12 h-12 mx-auto mb-2 rounded-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center">
                     <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2m0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                     </svg>
                   </div>
                   <p class="text-slate-500 text-sm font-medium">No predictions</p>
@@ -337,8 +269,8 @@
       <div class="text-center mt-4">
         <p class="text-slate-500 text-xs">Last updated: {{ new Date().toLocaleString() }}</p>
       </div>
+
     </div>
-  </div>
 </template>
 
 <script setup>
@@ -620,3 +552,5 @@ watch(predictions, () => {
   }
 }, { deep: true });
 </script>
+
+<!-- All divs are now properly closed above. No extra closing tags needed. -->
