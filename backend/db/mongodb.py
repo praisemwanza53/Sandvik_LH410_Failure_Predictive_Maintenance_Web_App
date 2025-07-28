@@ -1,9 +1,9 @@
 import os
 from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo.errors import ConnectionFailure, ServerSelectionTimeoutError
-import sys
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from config import config
+from backend.config import Config
+
+config = Config()
 
 # MongoDB client and database
 client = None
