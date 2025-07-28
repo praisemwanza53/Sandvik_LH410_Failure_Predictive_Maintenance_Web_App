@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+motor
+pydantic
+python-dotenv
+slowapi
+scikit-learn
+xgboost
+openai
+groq
+passlib
+python-jose
+pandas
+numpy
+joblib 

@@ -1,0 +1,211 @@
+Date,Time,Count,Description,Location,Code
+18/06/2023,01:56:05,,System Info: Display Hardware: $6170732 / Firmware: 2.2.15 Serial number: 40155668,Display,
+18/06/2023,01:56:05,,Front Hardware: $3724020 / Firmware: 1.172 Count: 1.10000 Software: LHD3.51.00 Serial number: 23676075,Front,
+18/06/2023,01:56:05,,Front Hardware: $3724020 / Firmware: 1.172 Count: 1.10000 Software: LHD3.53.00 Serial number: 23716125,Front,
+18/06/2023,01:56:05,,Middle Hardware: $3724020 / Firmware: 1.172 Count: 1.10000 Software: LHD3.53.00 Serial number: 23676075,Middle,
+18/06/2023,01:56:05,,Rear Hardware: $3724020 / Firmware: 1.172 Count: 1.10000 Software: LHD3.53.00 Serial number: 23168021,Rear,
+18/06/2023,01:56:05,,Installation package: hd_03.04.01.bin,,
+18/06/2023,01:56:05,,Total fuel used: 307.95 litres Average DEF consumption: 0.10 l,,
+18/06/2023,01:56:05,,Odometer: 847 km,,
+18/06/2025,01:13:32,1,Converter lock-up solenoid short to ground,Middle,188
+18/06/2025,01:13:36,1,Speed sensor signals missing (XDO1/6, XDO3/7),Middle,189
+18/06/2025,01:13:37,1,Converter lock-up solenoid short to ground,Middle,188
+18/06/2025,01:13:38,2,RH5 brake light and blinker short to ground (MM1/22),Middle,188
+18/06/2025,01:13:40,1,Speed sensor signals missing (XDO1/6, XDO3/7),Middle,189
+18/06/2025,01:15:38,1,Converter lock-up solenoid short to ground,Middle,188
+18/06/2025,01:15:39,2,RH5 brake light and blinker short to ground (MM1/22),Middle,188
+18/06/2025,01:15:40,1,Speed sensor signals missing (XDO1/6, XDO3/7),Middle,189
+18/06/2025,01:15:41,1,Converter lock-up solenoid short to ground,Middle,188
+18/06/2025,01:15:42,2,RH5 brake light and blinker short to ground (MM1/22),Middle,188
+17/08/2025,23:41:35,1,Rear - RHS brake light and blinker short to ground (XM1/2),Middle,18
+17/08/2025,23:41:35,1,Speed sensor signals missing (X03/16, X3/17),Middle,19
+17/08/2025,23:41:35,1,Converter lock-up-slensed short to ground (X3/17),Middle,19
+17/08/2025,23:39:36,1,Speed sensor signals missing (X03/16, X3/17),Middle,19
+17/08/2025,23:19:13,1,Converter lock-up solenoid short to ground (XM1Z2),Mode,188
+17/08/2025,23:19:13,1,Rear - RHS brake light and blinker short to ground (XM1Z2),Mode,188
+17/08/2025,23:19:36,1,Speed sensor signals missing (XD0/16, XD0/17),Mode,189
+17/08/2025,23:19:36,1,Converter lock-up solenoid short to ground (XM1Z2),Mode,188
+17/08/2025,23:19:36,1,Rear - RHS brake light and blinker short to ground (XM1Z2),Mode,188
+17/08/2025,23:05:47,1,Speed sensor signals missing (XD3/16, XD3/17),Middle,198
+17/08/2025,23:05:47,1,Converter lock-up solenoid short to ground,Middle,198
+17/08/2025,23:05:47,1,Oil Pressure below range (SPN:100, PM:18),Engine,198
+17/08/2025,22:51:30,1,Converter lock-up-atemoid short to ground,Middle,188
+17/08/2025,22:51:30,1,Speed sensor signals missing (XD3/16, XD3/17),Middle,189
+17/08/2025,22:51:30,2,Rear - RHS brake light and blinker short to ground (MM1/2),Middle,188
+17/08/2025,22:51:30,2,Speed sensor signals missing (XD3/16, XD3/17),Middle,189
+17/08/2025,22:51:30,2,Converter lock-up-atemidd short to ground,Middle,188
+17/08/2025,22:28:14,1,Converter lock-up selenoid short to ground,Middle,188
+17/08/2025,22:27:56,1,Converter RHS brake light and bliker short to ground (MM1/2),Middle,188
+17/08/2025,22:27:54,3,Speed sensor signals missing (XDO/16 "X0"7T),Middle,190
+17/08/2025,22:27:57,2,Converter RHS brake light and blinker short to ground (MM1/2),Middle,188
+17/08/2025,22:28:00,2,Converter RHS brake light and blinker short to ground (MM1/2),Middle,188
+17/08/2025,21:54:58,1,Converter back-up-stemoid short to ground (XM1/22),Mode,188
+17/08/2025,21:42:08,1,Converter lock-up selenoid short to ground (XM1/22),Middle,188
+17/08/2025,21:42:08,2,R.HS brake light and blinker short to ground (XM1/22),Middle,188
+17/08/2025,21:42:08,1,R.HS brake light and blinker short to ground (XM1/22),Middle,188
+17/08/2025,21:41:39,1,Converter lock-up selenoid short to ground (XM1/22),Middle,188
+17/08/2025,21:41:39,2,R.HS brake light and blinker short to ground (XM1/22),Middle,188
+17/08/2025,21:40:47,1,Speed sensor signals missing (XD3/16, XD3/17),Middle,189
+17/08/2025,21:40:47,2,R.HS brake light and blinker short to ground (XM1/22),Middle,188
+17/08/2025,21:29:48,1,RHE brake light and blinker short to ground (XM1/22),Middle,188
+17/08/2025,21:29:48,2,Converter lock-up solenoid short to ground,Middle,188
+17/08/2025,21:29:48,,Speed sensor signals missing (XD0/16, XD3/17),Middle,189
+17/08/2025,21:29:48,1,Converter lock-up solenoid short to ground,Middle,189
+17/08/2025,21:05:12,1,Rear - RHS brake light and blinker short to ground (XM1/22),Middle,188
+17/08/2025,21:05:22,1,Speed sensor signals missing (XD3/16 XD3/17),Middle,199
+17/08/2025,20:59:39,1,Converter lock-up selenoid short to ground,Middle,188
+17/08/2025,20:59:49,1,Speed sensor signals missing (XD3/16 XD3/17),Middle,199
+17/08/2025,20:59:59,2,Converter lock-up selenoid short to ground,Middle,188
+08/06/2025,15:13:32,4,Service code entered,Display,0
+08/06/2025,14:46:65,1,Entered functions test window,Display,65
+08/06/2025,14:43:27,1,Throttle pedal calibrated,Display,56
+08/06/2025,14:46:65,2,Service code entered,Display,0
+08/06/2025,14:46:16,2,Brake release pump activated,Middle,157
+25/03/2025,01:55:38,1,Service code entered,Display,0
+25/03/2025,20:23:38,5,Alarm log to file,Display,56
+25/03/2025,00:29:27,1,Throttle pedal calibrated,Display,56
+25/03/2025,00:29:27,4,Sensor code entered,Display,0
+25/03/2025,22:08:37,1,Throttle pedal calibrated,Display,56
+14/06/2025,13:23:32,2,Pressure difference between front and rear brake circuit (brakes may drag),,,
+14/06/2025,13:14:12,2,Pressure difference between front and rear brake circuit (brakes may drag),,,
+14/06/2025,13:13:21,1,Pressure difference between pedal and rear brake circuit (brakes may drag),,,
+14/06/2025,13:07:14,1,Central lubrication Pressure switch remains open,Front,60
+13/06/2025,23:39:15,1,Transmission oil filter blocked,Middle,175
+13/06/2025,23:39:27,1,Central lubrication - Pressure switch remains open,Front,60
+13/06/2025,23:39:45,1,Hydraulic oil level warning,Middle,106
+13/06/2025,23:39:57,1,Transmission oil filter blocked,Middle,175
+13/06/2025,23:40:06,1,Low Fuel Supply Pressure - SPN-54, FM-18,Engine,0
+13/06/2025,23:40:15,1,Central lubrication - Pressure switch remains open,Front,60
+13/06/2025,23:57:57,1,Central lubrication - Pressure switch remains open,Front,60
+13/06/2025,23:57:57,1,Transmission oil filter blocked,Middle,175
+13/06/2025,23:57:57,1,Low Fuel Supply Pressure - SPN-54, FM-18,Engine,0
+12/06/2023,01:47:16,1,Brakes are dragging. Make sure that brake pedal is not pressed and brake system is working correctly.,Middle,214
+12/06/2023,01:47:16,1,Central lubrication. Pressure switch remains open.,Front,60
+12/06/2023,01:47:16,1,Brakes are dragging. Make sure that brake pedal is not pressed and brake system is working correctly.,Middle,214
+12/06/2023,01:30:25,1,Central lubrication. Pressure switch remains open.,Front,60
+12/06/2023,01:30:25,1,Transmission oil filter blocked,Middle,178
+10/06/2025,10:15:30,1,Brake charging pressure low alarm,Middle,148
+10/06/2025,10:15:31,2,Brake charging pressure low warning,Middle,148
+10/06/2025,10:15:32,3,Brake charging pressure low warning,Middle,148
+10/06/2025,10:15:33,4,Brake charging pressure low warning,Middle,148
+10/06/2025,10:15:34,5,Brake charging pressure low warning,Middle,148
+10/06/2025,10:15:35,6,Brake charging pressure low warning,Middle,148
+10/06/2025,08:55:33,3,Transmission of Rter Blocked,Mode,175
+10/06/2025,08:53:30,1,Low Fuel Supply Pressure - SPN-84, FMI-18,Engine,0
+10/06/2025,08:53:00,1,Transmission of Rter Blocked,Mode,179
+10/06/2025,08:52:30,1,Low Fuel Supply Pressure - SPN-84, FMI-18,Engine,0
+10/06/2025,08:47:34,1,Transmission of Rter Blocked,Mode,176
+10/06/2025,08:43:30,3,Brake pedal pressure high warning,Rear,137
+08/08/2025,13:42:38,1,Central lubrication, Pressure switch remains closed,Front,61
+08/08/2025,13:39:11,1,Low Fuel Supply Pressure SPN-84, FM-18,Engine,0
+08/08/2025,13:07:22,1,Transmission oil filter blocked,Middle,178
+08/08/2025,13:05:44,1,Transmission oil filter blocked,Front,62
+08/08/2025,13:03:46,1,Yellow warning lamp open circuit,Middle,180
+08/08/2025,13:03:36,1,Transmission oil filter blocked (no code),Middle,179
+07/08/2025,12:29:44,1,Brake oil temperature high warning,Middle,137
+07/08/2025,12:24:16,1,Central lubrication, Pressure switch remains open,Front,60
+07/08/2025,12:21:40,1,Low Fuel Supply Pressure SPN-34, PM-18,Engine,0
+07/08/2025,12:19:00,1,Brake oil temperature high warning,Middle,137
+07/08/2025,12:14:30,1,Low Fuel Supply Pressure SPN-34, PM-18,Engine,0
+07/08/2025,12:12:32,1,Low Fuel Supply Pressure SPN-34, PM-18,Engine,0
+07/08/2025,11:30:24,1,Central lubrication, Pressure switch remains open,Front,60
+05/06/2025,13:56:13,1,Central Lubrication - Pressure switch remains open,Front,60
+05/06/2025,13:50:15,4,Low Fuel Supply Pressure - SPN-34, FM-18,Engine,0
+05/06/2025,13:42:12,1,Central Lubrication - Pressure switch remains open,Front,60
+05/06/2025,13:34:15,4,Low Fuel Supply Pressure - SPN-34, FM-18,Engine,0
+05/06/2025,13:29:28,1,Central Lubrication - Pressure switch remains open,Front,60
+17/05/2025,10:19:28,1,Neutral brake has stopped the machine (4 km/h),Display,316
+17/05/2025,09:49:54,1,Alarm log to file,Display,15
+17/05/2025,09:09:14,1,Neutral brake has stopped the machine (8 km/h),Display,316
+17/05/2025,08:17:30,1,Service code entered,Display,28
+17/05/2025,08:07:44,1,Operator accepted brake test results,Display,72
+17/05/2025,08:07:17,1,Service code entered,Display,28
+17/05/2025,08:07:17,2,Brake test / Brake,Middle,,
+15/06/2020,10:15:40,1,Fire detected,Dash,29
+15/06/2020,10:13:41,1,Cable door switch error, both contacts close,Chair,66
+15/06/2020,10:12:16,1,Speed sensor signals missing (XD3/16 XD3/17),Mode,199
+15/06/2020,09:59:00,2,Speed sensor signals missing (XD3/16 XD3/17),Mode,199
+15/06/2020,09:51:20,1,Speed sensor signals missing (XD3/16 XD3/17),Mode,199
+15/06/2020,09:45:19,1,Speed sensor signals missing (XD3/16 XD3/17),Mode,199
+13/08/2025,13:55:55,1,Coolant Temperature High SPN 110 FML 9,Engine,0
+13/08/2025,13:55:55,1,Speed sensor signals missing (X03/16 X03/17),Middle,199
+13/08/2025,13:55:55,2,Coolant Temperature High SPN 110 FML 9,Engine,0
+13/08/2025,13:55:55,2,Speed sensor signals missing (X03/16 X03/17),Middle,199
+12/06/2020,10:37:48,103,Speed sensor signals missing (XD3/16, XD3/17),Mode,199
+12/08/2025,08:44:32,1,Yellow warning lamp short to external voltage,Middle,179
+12/08/2025,08:44:32,3,Speed sensor signals missing (XD3/16, XD3/17),Middle,199
+12/08/2025,08:44:33,1,Coolant lubrication, Pressure switch remains open,Front,00
+12/08/2025,08:44:33,1,Transmission solenoid 2 short to external voltage,Middle,45
+12/08/2025,08:44:33,1,Coolant temperature sensor circuit,Middle,199
+12/08/2025,08:45:03,2,Coolant Temperature High (SPN110, FMI 0),Engine,0
+11/06/2025,03:12:38,2,Coolant Temperature High SPN-116, FMI 0,Engine,0
+11/06/2025,03:12:38,2,Speed sensor signals missing (XDO316, XDO317),Middle,199
+11/06/2025,03:12:38,1,Coolant Temperature High SPN-110, FMI 0,Engine,0
+11/06/2025,03:12:38,1,Speed sensor signals missing (XDO316, XDO317),Middle,199
+11/06/2025,03:10:00,1,Coolant Temperature High SPN-110, FMI 0,Engine,0
+11/06/2025,03:10:00,1,Air Filter Restriction High SPN-107, FMI 0,Engine,0
+11/06/2025,03:10:43,1,Coolant Temperature High SPN-110, FMI 0,Engine,0
+10/06/2025,23:26:35,1,Air Filter Restriction High SPN 107 PM 0,Engine,0
+10/06/2025,23:26:35,1,Speed sensor signals missing (XDO/16 XDO/17),Middle,190
+10/06/2025,23:26:35,1,Coolant Temperature High SPN 110 FMI 0,Engine,0
+10/06/2020,12:23:25,1,Speed sensor signals missing (XD3/16, XD3/17),Mode,199
+10/06/2020,12:32:26,1,Yellow warning lamp open circuit,Mode,180
+10/06/2020,12:32:27,1,Engine cooling control open circuit (no feedback),Mode,201
+10/06/2020,12:32:28,1,Air Filter Restriction High - SPN 107, FM1/0,Mode,199
+10/06/2020,12:29:22,13,Speed sensor signals missing (XD3/16, XD3/17),Mode,199
+10/06/2020,12:55:17,1,Speed sensor signals missing (XD3/16, XD3/17),Mode,199
+10/06/2020,10:15:58,1,Air Filter Restriction High - SPN 107, FM1/0,Mode,199
+10/06/2020,10:15:58,1,Coolant Temperature High - SPN 110, FM1/0,Mode,199
+10/06/2025,01:27:31,1,Central lubrication, Pressure switch remains open,Front,60
+10/06/2025,01:27:31,1,Engine cooling control open circuit (no feedback),Middle,201
+10/06/2025,01:27:30,1,Cabin door switch error, both contacts close,Chair,66
+10/06/2025,01:27:30,1,Central lubrication, Pressure switch remains open,Front,60
+10/06/2025,01:26:18,1,Yellow warning lamp open circuit,Middle,201
+10/06/2025,01:26:18,1,Engine cooling control open circuit (no feedback),Middle,201
+08/06/2025,21:15:50,1,Transmission solenoid 2 short to external voltage,Middle,45
+08/06/2025,20:56:21,1,Yellow warning lamp open circuit,Middle,180
+08/06/2025,20:56:26,1,Engine cooling control open circuit (no feedback),Middle,201
+08/06/2025,20:56:26,1,Yellow warning lamp open circuit (no feedback),Middle,201
+08/06/2025,20:54:34,1,Fuse blown (dashboard),Dash,25
+08/06/2025,20:54:34,1,Engine cooling control open circuit,Middle,180
+08/06/2025,20:49:36,1,Engine cooling control open circuit,Middle,201
+08/06/2025,01:39:08,1,Fire detected,Dash,29
+08/06/2025,01:36:37,1,Yellow warning lamp open circuit,Middle,180
+08/06/2025,01:36:35,1,Engine cooling control open circuit (no feedback),Middle,201
+08/06/2025,01:36:32,1,Yellow warning lamp released E-stop activated,Chair,31
+08/06/2025,01:36:32,1,Fuse blown (dashboard),Dash,23
+08/06/2025,01:06:37,1,Yellow warning lamp open circuit,Middle,180
+08/06/2025,01:06:37,1,Engine cooling control open circuit (no feedback),Middle,201
+08/06/2025,08:34:45,1,Transmission of filter blocked,Mode,178
+08/06/2025,08:34:45,1,Brake rotor filter blocked,Rear,119
+08/06/2025,08:33:45,1,Transmission of filter blocked,Mode,178
+08/06/2025,08:33:45,1,Low Fuel Supply Pressure SPN-34, FM-18,Engine,0
+08/06/2025,08:33:10,1,Brake return filter blocked,Rear,119
+08/06/2025,08:15:14,1,Engine cooling control open circuit (no feedback),Mode,201
+08/06/2025,08:15:14,1,Yellow warning lamp,Mode,180
+08/06/2025,13:15:48,1,Air Filter Restriction High SPN 107, PM 0,Engine,0
+08/06/2025,13:15:47,1,Coolant Temperature High SPN 110, PM 0,Engine,1
+08/06/2025,13:15:47,1,Air Filter Restriction High SPN 107, PM 0,Engine,0
+08/06/2025,13:15:47,1,Coolant Temperature High SPN 110, PM 0,Engine,0
+08/06/2025,13:15:43,2,Coolant Temperature High SPN 110, PM 0,Engine,0
+08/06/2025,13:14:42,1,Speed sensor signals missing (X03/16, X03/17),Middle,199
+08/06/2025,13:13:45,1,Speed sensor signals missing,Middle,199
+08/08/2025,20:41:13,1,Yellow warning lamp open circuit,Middle,185
+08/08/2025,20:41:14,1,Engine control control open circuit (no feedback),Middle,201
+08/08/2025,20:41:36,1,Fire suppression released, E-stop activated,Chair,31
+08/08/2025,20:41:36,1,Fire suppression released, E-stop activated,Middle,31
+08/08/2025,20:38:00,1,Engine cooling control open circuit (no feedback),Middle,201
+08/08/2025,20:38:00,2,Fire suppression released, E-stop activated,Chair,31
+03/04/2025,20:44:48,2,Service code entered,Display,0
+02/04/2026,13:02:36,2,Brake release pump activated,Middle,157
+02/04/2029,19:09:03,1,Throttle pedal calibrated,Display,56
+03/03/2025,19:08:35,2,Service code entered,Display,0
+31/03/2029,18:49:00,1,Alarm log to file,Display,15
+29/03/2025,19:21:25,3,Alarm log to file,Display,15
+29/03/2025,22:54:59,1,Brake pedal loging activated,Middle,157
+22/03/2026,22:58:32,1,Throttle pedal calibrated,Display,65
+27/03/2026,22:58:33,1,Service code entered,Display,0
+27/03/2026,22:58:33,1,Throttle pedal calibrated,Display,65
+21/03/2025,07:31:41,1,Service code entered,Display,0
+21/03/2025,07:31:41,1,Throttle pedal calibrated,Display,56
+11/03/2025,07:14:53,1,Service code,Display,56
