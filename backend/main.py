@@ -1,11 +1,26 @@
+# Ensure this file is run from the backend directory
+import os
+if not os.path.exists('main.py') or not os.path.exists('config.py'):
+    raise RuntimeError("Run 'uvicorn main:app --reload' from the backend directory, not the project root.")
+
+
+
 from fastapi import FastAPI, Depends, HTTPException, status, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
-from backend.config import Config
-from backend.db import mongodb
+
+app = FastAPI(title="Sandvik LH410 Failure Predictor API")
+
+# Universal import block for local and deployment
+try:
+    from backend.config import Config
+    from backend.db import mongodb
+except ImportError:
+    from config import Config
+    import db.mongodb as mongodb
 
 
 config = Config()
@@ -51,6 +66,15 @@ async def shutdown_event():
     """Close MongoDB connection on shutdown"""
     await mongodb.close_mongodb_connection()
 
+
+# Add /api/insights endpoint to accept POST requests from frontend
+from fastapi import Body
+@app.post("/api/insights")
+async def receive_insights(insights: dict = Body(...)):
+    # You can log, store, or process insights here
+    print("Received AI insights:", insights)
+    return {"status": "received"}
+
 @app.get("/api/health")
 def health_check():
-    return {"status": "ok"} 
+    return {"status": "ok"}

@@ -1,7 +1,12 @@
 import os
 from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo.errors import ConnectionFailure, ServerSelectionTimeoutError
-from backend.config import Config
+
+# Universal import block for local and deployment
+try:
+    from backend.config import Config
+except ImportError:
+    from config import Config
 
 config = Config()
 
