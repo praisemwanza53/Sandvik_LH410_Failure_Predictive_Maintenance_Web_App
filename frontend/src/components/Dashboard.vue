@@ -81,8 +81,8 @@
                   <th class="text-right font-medium">Probability</th>
                   <th class="text-right font-medium">Risk</th>
                   <th class="text-right font-medium">Time to Failure</th>
-                  <th class="text-right font-medium">Predicted At</th>
-                  <th class="text-right font-medium">Details</th>
+                  <!-- <th class="text-right font-medium">Predicted At</th>
+                  <th class="text-right font-medium">Details</th> -->
                 </tr>
               </thead>
               <tbody>
@@ -100,8 +100,8 @@
                     </span>
                     <span v-else class="text-slate-400">--</span>
                   </td>
-                  <td class="text-right font-mono whitespace-nowrap">{{ formatTimestamp(prediction.predicted_at || prediction.timestamp) }}</td>
-                  <td class="text-right max-w-[10rem] truncate" :title="prediction.details">{{ prediction.details || '--' }}</td>
+                  <!-- <td class="text-right font-mono whitespace-nowrap">{{ formatTimestamp(prediction.predicted_at || prediction.timestamp) }}</td>
+                  <td class="text-right max-w-[10rem] truncate" :title="prediction.details">{{ prediction.details || '--' }}</td> -->
                 </tr>
               </tbody>
             </table>
@@ -429,7 +429,7 @@ watch(aiInsights, async (newInsights) => {
 
 // --- Feature Status Logic ---
 const featureStatus = computed(() => {
-  // If any prediction exists for a component, mark it as online
+  // Only show Connected if there is at least one valid prediction for the component
   const componentsOnline = {
     failure_occurred: false,
     engine_failure: false,
@@ -442,11 +442,13 @@ const featureStatus = computed(() => {
     if (p.component === 'brake' || p.component === 'brake_failure') componentsOnline.brake_failure = true;
     if (p.component === 'transmission' || p.component === 'transmission_failure') componentsOnline.transmission_failure = true;
   });
-  // MongoDB: treat as connected if logs.value is a non-null, non-undefined array (even if empty)
-  const mongoConnected = Array.isArray(logs.value) && logs.value !== null && logs.value !== undefined;
+  // MongoDB: treat as connected ONLY if logs.value is a non-null, non-undefined array AND has at least one log
+  const mongoConnected = Array.isArray(logs.value) && logs.value !== null && logs.value !== undefined && logs.value.length > 0;
+  // Failure Model: only connected if there is a prediction for 'failure_occurred'
+  const failureModelConnected = componentsOnline.failure_occurred;
   return [
     { name: 'db', label: 'MongoDB', online: mongoConnected },
-    { name: 'failure_occurred', label: 'Failure Model', online: componentsOnline.failure_occurred },
+    { name: 'failure_occurred', label: 'Failure Model', online: failureModelConnected },
     { name: 'engine_failure', label: 'Engine Model', online: componentsOnline.engine_failure },
     { name: 'brake_failure', label: 'Brake Model', online: componentsOnline.brake_failure },
     { name: 'transmission_failure', label: 'Transmission Model', online: componentsOnline.transmission_failure },
