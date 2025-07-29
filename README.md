@@ -9,15 +9,34 @@ A modern, AI-powered predictive maintenance system for Sandvik LH410 mining equi
 - **Beautiful UI**: Modern, responsive design with Tailwind CSS
 - **Component Analysis**: Detailed analysis for engine, brake, transmission, and electrical systems
 - **Risk Assessment**: Multi-level risk classification (critical, high, medium, low, very low)
-- **AI Explanations**: LLM-powered explanations for predictions and recommendations
+- **AI Explanations**: LLM-powered explanations for predictions and recommendations (using Groq LLM)
 - **Interactive Charts**: Real-time data visualization with Chart.js
 - **RESTful API**: FastAPI backend with comprehensive endpoints
+
+## Project Status
+
+Currently in **Beta** development. The core functionality is implemented and undergoing testing.
+
+## Future Enhancements
+
+- Implement user authentication and authorization.
+- Add more detailed failure analysis and reporting.
+- Integrate with additional data sources.
+- Improve model accuracy through ongoing training and optimization.
+
+## Data Sources
+
+The system uses alarm logs and sensor data from Sandvik LH410 mining equipment. The data is stored in CSV files and used for training the machine learning models.
+
+## Model Training
+
+The machine learning models are trained using a combination of historical alarm data and sensor readings. The training process involves data preprocessing, feature engineering, model selection (e.g., XGBoost), and hyperparameter tuning. Training scripts are located in the `data/` directory.
 
 ## 🏗️ Architecture
 
 ```
 ├── backend/                 # FastAPI backend
-│   ├── core/               # Core ML models and LLM integration
+│   ├── core/               # Core ML models and Groq LLM integration
 │   ├── db/                 # Database models and MongoDB integration
 │   ├── routes/             # API endpoints
 │   └── utils/              # Utility functions
@@ -35,7 +54,7 @@ A modern, AI-powered predictive maintenance system for Sandvik LH410 mining equi
 - **Scikit-learn**: Machine learning models
 - **XGBoost**: Gradient boosting for predictions
 - **MongoDB**: Database for logs and predictions
-- **OpenAI**: LLM integration for explanations
+- **Groq**: LLM integration for explanations
 
 ### Frontend
 - **Vue.js 3**: Progressive JavaScript framework
@@ -171,9 +190,6 @@ FRONTEND_ORIGIN=http://localhost:5173
 
 # API Configuration
 API_KEY=test_key_123
-
-# OpenAI Configuration (for LLM explanations)
-OPENAI_API_KEY=your_openai_api_key_here
 ```
 
 ### Model Configuration
@@ -238,7 +254,20 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 For support and questions:
 - Check the API documentation at http://localhost:8000/docs
 - Review the backend logs for error details
-- Ensure all dependencies are properly installed
+- Ensure all dependencies are properly installed.
+
+## 🚀 Deployment Considerations
+
+- Ensure sufficient resources (CPU, memory) for the backend and frontend.
+- Configure appropriate environment variables for production.
+- Monitor application logs for errors and performance bottlenecks.
+- Implement health checks for monitoring and alerting.
+
+## Troubleshooting
+
+- **Backend not starting:** Check the backend logs for errors. Verify that the virtual environment is activated and dependencies are installed.
+- **Frontend not displaying:** Ensure the frontend is built and the web server is serving the correct files. Check the browser's developer console for errors.
+- **API errors:** Verify the API endpoints and request parameters. Check the backend logs for error details.
 
 ## 🎉 Success!
 

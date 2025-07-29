@@ -16,14 +16,11 @@ class Config:
     
     # API Configuration
     API_KEY = os.getenv("API_KEY", "test_key_123")
-    GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
-    
-    # OpenAI Configuration (for LLM explanations)
-    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+    GROQ_API_KEY = os.getenv("GROQ_API_KEY")
     
     # Server Configuration
     HOST = os.getenv("HOST", "0.0.0.0")
     PORT = int(os.getenv("PORT", "8000"))
 
 # Global config instance
-config = Config() 
+config = Config()

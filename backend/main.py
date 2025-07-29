@@ -11,6 +11,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
+import logging
 
 app = FastAPI(title="Sandvik LH410 Failure Predictor API")
 
@@ -24,6 +25,15 @@ except ImportError:
 
 
 config = Config()
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+# Log Groq API key presence
+if config.GROQ_API_KEY:
+    logging.info("GROQ_API_KEY is present in backend/config.py")
+else:
+    logging.warning("GROQ_API_KEY is NOT present in backend/config.py")
 
 # CORS settings
 app.add_middleware(
@@ -47,14 +57,55 @@ def api_key_auth(credentials: HTTPAuthorizationCredentials = Depends(HTTPBearer(
     # Skip authentication for testing
     return True
     # Uncomment below to re-enable authentication
-    # if not credentials or credentials.credentials != API_KEY:
+    # if not credentials or credentials != API_KEY:
     #     raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid API Key")
+
 
 # Include routes
 from routes import predict, explain, logs
 app.include_router(predict.router)
 app.include_router(explain.router)
 app.include_router(logs.router)
+
+# --- PATCH: Override /api/alarm to generate and store AI Insights automatically ---
+from fastapi import Request
+from routes.predict import router as predict_router
+try:
+    from backend.core import llm
+except ImportError:
+    import core.llm as llm
+from fastapi import APIRouter
+
+alarm_router = APIRouter()
+
+@alarm_router.post("/api/alarm")
+async def alarm_predict(request: Request):
+    """Predict failure and generate/store AI Insights automatically."""
+    try:
+        payload = await request.json()
+        # Call the original prediction logic
+        response = await predict_router.routes[0].endpoint(payload)
+        prediction = response
+        # Generate AI Insights from prediction
+        insights = generate_insights(prediction)
+        # Store insights in MongoDB
+        db = getattr(mongodb, "get_database", None)
+        if callable(db):
+            database = db()
+        else:
+            database = mongodb.client[config.MONGODB_DB]
+        insights_collection = database["insights"]
+        if hasattr(insights_collection, "insert_one") and callable(insights_collection.insert_one):
+            result = insights_collection.insert_one({"insights": insights})
+            if hasattr(result, "__await__"):
+                result = await result
+        # Return both prediction and insights
+        return {"prediction": prediction, "insights": insights}
+    except Exception as e:
+        print("Error in alarm_predict:", e)
+        return {"status": "error", "detail": str(e)}
+
+app.include_router(alarm_router)
 
 @app.on_event("startup")
 async def startup_event():
@@ -68,20 +119,59 @@ async def shutdown_event():
 
 
 # Add /api/insights endpoint to accept POST requests from frontend
+
 from fastapi import Body
 @app.post("/api/insights")
 async def receive_insights(insights: dict = Body(...)):
-    # You can log, store, or process insights here
-    print("Received AI insights:", insights)
-    return {"status": "received"}
+    """Store received AI insights in MongoDB"""
+    try:
+        db = getattr(mongodb, "get_database", None)
+        if callable(db):
+            database = db()
+        else:
+            database = mongodb.client[config.MONGODB_DB]
+        insights_collection = database["insights"]
+        # Await the insert operation if using Motor (async MongoDB driver)
+        if hasattr(insights_collection, "insert_one") and callable(insights_collection.insert_one):
+            result = insights_collection.insert_one(insights)
+            if hasattr(result, "__await__"):
+                result = await result
+            inserted_id = getattr(result, "inserted_id", None)
+        else:
+            inserted_id = None
+        print("Received and stored AI insights:", insights)
+        return {"status": "received", "inserted_id": str(inserted_id) if inserted_id else None}
+    except Exception as e:
+        print("Error storing AI insights:", e)
+        return {"status": "error", "detail": str(e)}
+@app.get("/v1/models")
+async def dummy_models():
+    """Dummy endpoint to silence frontend 404 errors."""
+    return {"models": []}
 
 @app.get("/api/insights")
 async def get_insights():
     """Fetch all AI insights from MongoDB"""
-    # Ensure insights_collection is defined (replace 'your_collection_name' with the actual collection name)
-    insights_collection = mongodb.database["insights"]  # Use the correct collection name if different
-    insights = list(insights_collection.find({}, {"_id": 0}))
-    return insights
+    try:
+        db = getattr(mongodb, "get_database", None)
+        if callable(db):
+            database = db()
+        else:
+            database = mongodb.client[config.MONGODB_DB]
+        insights_collection = database["insights"]
+        # Use async find if using Motor
+        if hasattr(insights_collection, "find") and callable(insights_collection.find):
+            cursor = insights_collection.find({}, {"_id": 0})
+            if hasattr(cursor, "to_list") and callable(cursor.to_list):
+                insights = await cursor.to_list(length=100)
+            else:
+                insights = list(cursor)
+        else:
+            insights = []
+        return insights
+    except Exception as e:
+        print("Error fetching AI insights:", e)
+        return {"status": "error", "detail": str(e)}
 
 @app.get("/api/health")
 def health_check():

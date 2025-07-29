@@ -5,6 +5,7 @@ import pandas as pd
 from pathlib import Path
 from typing import Dict, List, Any
 from datetime import datetime
+import warnings
 
 class OptimizedPredictor:
     def __init__(self):
@@ -115,6 +116,7 @@ class OptimizedPredictor:
     
     def predict_failure(self, alarm_data: Dict[str, Any]) -> Dict[str, Any]:
         """Predict failure probabilities for all failure types"""
+        warnings.filterwarnings("ignore")
         try:
             # Preprocess the data
             features_df = self.preprocess_new_data(alarm_data)
@@ -168,7 +170,7 @@ class OptimizedPredictor:
                 'component': alarm_data.get('component', 'unknown'),
                 'timestamp': datetime.utcnow().isoformat()
             }
-    
+
     def _get_risk_level(self, probability: float) -> str:
         """Convert probability to risk level"""
         if probability >= 0.8:
@@ -194,4 +196,4 @@ class OptimizedPredictor:
             return max(0, 720 - probability * 720)  # Low: 0-576 hours
 
 # Initialize the predictor
-predictor = OptimizedPredictor() 
+predictor = OptimizedPredictor()
