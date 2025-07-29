@@ -75,6 +75,14 @@ async def receive_insights(insights: dict = Body(...)):
     print("Received AI insights:", insights)
     return {"status": "received"}
 
+@app.get("/api/insights")
+async def get_insights():
+    """Fetch all AI insights from MongoDB"""
+    # Ensure insights_collection is defined (replace 'your_collection_name' with the actual collection name)
+    insights_collection = mongodb.database["insights"]  # Use the correct collection name if different
+    insights = list(insights_collection.find({}, {"_id": 0}))
+    return insights
+
 @app.get("/api/health")
 def health_check():
     return {"status": "ok"}
